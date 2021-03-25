@@ -20,7 +20,7 @@ time.sleep(120)
 os.system('/usr/local/bin/dsacon corr stop')
 time.sleep(60)
 d.put_dict('/cmd/corr/docopy','False')
-time.sleep(1)
+time.sleep(10)
 
 
 
