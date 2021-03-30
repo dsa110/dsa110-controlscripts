@@ -11,7 +11,7 @@ d.put_dict('/cnf/datestring',datestring)
 d.put_dict('/cmd/corr/docopy','True')
 
 os.system('/usr/local/bin/dsacon corr start')
-time.sleep(20)
+time.sleep(60)
 os.system('/usr/local/bin/dsacon corr set')
 time.sleep(3600)
 
