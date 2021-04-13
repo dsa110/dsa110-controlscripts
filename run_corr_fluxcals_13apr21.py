@@ -52,7 +52,7 @@ d.put_dict('/cnf/datestring',datestring)
 d.put_dict('/cmd/corr/docopy','True')
 
 now = Time(datetime.datetime.utcnow())
-time.sleep(int(start-now))
+time.sleep(int((start-now).to_value(u.s)))
 
 # 3C48 - start at 
 for cal in cals:
