@@ -54,7 +54,7 @@ now = datetime.datetime.utcnow()
 time.sleep((start-now).seconds)
 
 # 3C48 - start at 
-for cal in cals:
+for calname, cal in cals.items():
     d.put_dict('/cmd/ant/0', {'cmd': 'move', 'val': cal['el']})
     time.sleep(cal['slew']*60)
     d.put_dict('/cmd/ant/0', {'cmd': 'move', 'val': cal['el']})
