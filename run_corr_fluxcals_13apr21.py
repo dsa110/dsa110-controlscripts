@@ -16,7 +16,7 @@ cals = {
     '3C138' : {
         'el': 69.41,
         'slew': 4,
-        'before': 30,
+        'before': 15,
         'after': 4
     },
     '3C147' : {
@@ -45,7 +45,7 @@ cals = {
     }
 }
 datestring = '13apr21'
-start = datetime.datetime(2021, 4, 13, 23, 5, 47, 846000)
+start = datetime.datetime(2021, 4, 13, 23, 20, 47, 846000)
 #sstart = datetime.datetime(2021, 4, 13, 19, 42, 55, 870494)
 
 d.put_dict('/cnf/datestring',datestring)
