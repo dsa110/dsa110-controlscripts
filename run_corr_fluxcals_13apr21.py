@@ -4,14 +4,13 @@ import datetime
 import os
 import time
 from dsautils import dsa_store
-from astropy.time import Time
 d = dsa_store.DsaStore()
 
 cals = {
     '3C48' : {
         'el': 85.93,
         'slew': 4,
-        'before': 30,
+        'before': 10,
         'after': 30+153
     },
     '3C138' : {
@@ -46,13 +45,13 @@ cals = {
     }
 }
 datestring = '13apr21'
-start = Time('2021-04-13T19:33:55.870')
+start = datetime.datetime(2021, 4, 13, 19, 42, 55, 870494)
 
 d.put_dict('/cnf/datestring',datestring)
 d.put_dict('/cmd/corr/docopy','True')
 
-now = Time(datetime.datetime.utcnow())
-time.sleep(int((start-now).to_value(u.s)))
+now = datetime.datetime.utcnow()
+time.sleep((start-now).seconds)
 
 # 3C48 - start at 
 for cal in cals:
