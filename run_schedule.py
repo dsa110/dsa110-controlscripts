@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import sys
 import os
 import time as pytime
@@ -64,6 +66,7 @@ def exec_action(a,d):
 # main part of code
 
 schedule = '/home/ubuntu/proj/websrv/temp-clone/actions.npy'
+#schedule = 'actions.npy'
 
 d = dsa_store.DsaStore()
 a = np.load(schedule,allow_pickle=True)
