@@ -25,27 +25,28 @@ cals = {
     #     'before': 2,
     #     'after': 29+87
     # },
-    '3C196' : {
-        'el': 100.98,
-        'slew': 1,
-        'before': 98,
-        'after': 30+246
-    },
+    # '3C196' : {
+    #     'el': 100.98,
+    #     'slew': 1,
+    #     'before': 98,
+    #     'after': 30+246
+    # },
     '3C286' : {
         'el': 83.28,
         'slew': 4,
-        'before': 30,
-        'after': 4
+        'before': 250,
+        'after': 15
     },
     '3C295' : {
         'el': 104.99,
         'slew': 5,
-        'before': 4,
+        'before': 14,
         'after': 30
     }
 }
 datestring = '13apr21'
-start = datetime.datetime(2021, 4, 14, 0, 55, 45, 762392)
+start = datetime.datetime(2021, 4, 14, 3, 34, 25, 977954)
+# start = datetime.datetime(2021, 4, 14, 0, 55, 45, 762392)
 # start = datetime.datetime(2021, 4, 13, 23, 20, 47, 846000)
 # start = datetime.datetime(2021, 4, 13, 19, 42, 55, 870494)
 
