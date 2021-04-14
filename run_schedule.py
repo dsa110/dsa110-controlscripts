@@ -63,7 +63,7 @@ def exec_action(a,d):
         
 # main part of code
 
-schedule = 'actions.npy'
+schedule = '/home/ubuntu/proj/websrv/temp-clone/actions.npy'
 
 d = dsa_store.DsaStore()
 a = np.load(schedule,allow_pickle=True)
