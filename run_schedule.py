@@ -73,7 +73,7 @@ a = np.load(schedule,allow_pickle=True)
 for ln in a:
 
     print(ln)
-    pause_until(ln['time'].datetime)
+    pause_until(ln['time'])
     exec_action(ln,d)
 
 
