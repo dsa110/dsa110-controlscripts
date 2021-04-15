@@ -57,7 +57,13 @@ def exec_action(a,d):
         os.system('/usr/local/bin/dsacon corr stop')
         pytime.sleep(60)
         d.put_dict('/cmd/corr/docopy','False')
-        
+
+    if a['cmd'] == 'record':
+        d.put_dict('/cmd/corr/17', {'cmd': 'record', 'val': a['val']})
+        d.put_dict('/cmd/corr/18', {'cmd': 'record', 'val': a['val']})
+        d.put_dict('/cmd/corr/19', {'cmd': 'record', 'val': a['val']})
+        d.put_dict('/cmd/corr/20', {'cmd': 'record', 'val': a['val']})
+    
     if a['cmd'] == 'test':
         d.put_dict('/cmd/corr/100', {'cmd': 'test', 'val': '0'})
         pytime.sleep(1)
@@ -69,6 +75,8 @@ schedule = '/home/ubuntu/proj/websrv/temp-clone/actions.npy'
 #schedule = 'actions.npy'
 
 d = dsa_store.DsaStore()
+d.put_dict('/cnf/datestring','15apr21')
+
 a = np.load(schedule,allow_pickle=True)
 for ln in a:
 
