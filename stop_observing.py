@@ -9,6 +9,7 @@ from datetime import timezone
 import numpy as np
 from dsautils import dsa_store
 
+d = dsa_store.DsaStore()
 d.put_dict('/cmd/corr/0', {'cmd': 'trigger', 'val': '0'})
 pytime.sleep(120)
 os.system('/usr/local/bin/dsacon corr stop')
