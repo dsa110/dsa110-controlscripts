@@ -58,6 +58,9 @@ def exec_action(a,d):
         pytime.sleep(60)
         d.put_dict('/cmd/corr/docopy','False')
 
+    if a['cmd'] == 'trigger':
+        d.put_dict('/cmd/corr/0', {'cmd': 'trigger', 'val': '0'})
+        
     if a['cmd'] == 'record':
         d.put_dict('/cmd/corr/17', {'cmd': 'record', 'val': a['val']})
         d.put_dict('/cmd/corr/18', {'cmd': 'record', 'val': a['val']})
