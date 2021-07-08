@@ -52,7 +52,7 @@ def exec_action(a,d):
         os.system('/usr/local/bin/dsacon corr set')
         
     if a['cmd'] == 'stop':
-        d.put_dict('/cmd/corr/0', {'cmd': 'trigger', 'val': '0'})
+        d.put_dict('/cmd/corr/0', {'cmd': 'trigger', 'val': a['val']})
         pytime.sleep(120)
         os.system('/usr/local/bin/dsacon corr stop')
         pytime.sleep(60)
