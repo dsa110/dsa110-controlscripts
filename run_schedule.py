@@ -48,7 +48,7 @@ def exec_action(a,d):
     if a['cmd'] == 'start':
         d.put_dict('/cmd/corr/docopy','True')
         os.system('/usr/local/bin/dsacon corr start')
-        pytime.sleep(60)
+        pytime.sleep(180)
         os.system('/usr/local/bin/dsacon corr set')
         
     if a['cmd'] == 'stop':
@@ -78,7 +78,7 @@ schedule = '/home/ubuntu/proj/websrv/temp-clone/actions.npy'
 #schedule = 'actions.npy'
 
 d = dsa_store.DsaStore()
-d.put_dict('/cnf/datestring','12jul21')
+d.put_dict('/cnf/datestring','09aug21')
 
 a = np.load(schedule,allow_pickle=True)
 for ln in a:
