@@ -5,7 +5,7 @@ import os
 import time as pytime
 from time import sleep
 from datetime import datetime
-from datetime import timezone
+#from datetime import timezone
 import numpy as np
 from dsautils import dsa_store
 
@@ -26,7 +26,8 @@ def pause_until(time):
 
     # Now we wait
     while True:
-        now = datetime.now().astimezone(timezone.utc).timestamp()
+        #now = datetime.now().astimezone(timezone.utc).timestamp()
+        now = datetime.utcnow().timestamp()
         diff = end - now
         print('waiting: ',diff)
 
