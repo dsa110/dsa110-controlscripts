@@ -36,10 +36,14 @@ def exec_action(a,d):
 d = dsa_store.DsaStore()
 d.put_dict('/cnf/datestring',get_datestring())
 
+# update trig_ct
+for i in np.arange(1,21):
+    d.put_dict('/mon/corr/'+str(i)+'/voltage_ct',{'n_trigs':0})
+
 while True:
 
     exec_action('start',d)
-    pytime.sleep(3600*6)
+    pytime.sleep(3600*3)
     exec_action('stop',d)
     pytime.sleep(60)
 
