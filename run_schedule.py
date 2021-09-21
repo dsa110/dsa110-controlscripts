@@ -79,7 +79,7 @@ schedule = '/home/ubuntu/proj/websrv/temp-clone/actions.npy'
 #schedule = 'actions.npy'
 
 d = dsa_store.DsaStore()
-d.put_dict('/cnf/datestring','10aug21')
+d.put_dict('/cnf/datestring','FAST_FRINGE')
 
 a = np.load(schedule,allow_pickle=True)
 for ln in a:
