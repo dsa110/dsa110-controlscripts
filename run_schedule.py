@@ -9,6 +9,13 @@ from datetime import datetime
 import numpy as np
 from dsautils import dsa_store
 
+def get_datestring():
+
+    val = datetime.now()
+    datestring = str(val.year)+'_'+str(val.month)+'_'+str(val.day)+'_'+str(val.hour)+'_'+str(val.minute)+'_'+str(val.second)
+    return datestring
+
+
 def pause_until(time):
     """
     Pause your program until a specific end time.
@@ -49,7 +56,7 @@ def exec_action(a,d):
     if a['cmd'] == 'start':
         d.put_dict('/cmd/corr/docopy','True')
         os.system('/usr/local/bin/dsacon corr start')
-        pytime.sleep(300)
+        pytime.sleep(360)
         os.system('/usr/local/bin/dsacon corr set')
         
     if a['cmd'] == 'stop':
@@ -79,7 +86,11 @@ schedule = '/home/ubuntu/proj/websrv/temp-clone/actions.npy'
 #schedule = 'actions.npy'
 
 d = dsa_store.DsaStore()
-d.put_dict('/cnf/datestring','FAST_FRINGEY')
+d.put_dict('/cnf/datestring',get_datestring())
+
+# update trig_ct
+for i in np.arange(1,21):
+    d.put_dict('/mon/corr/'+str(i)+'/voltage_ct',{'n_trigs':0})
 
 a = np.load(schedule,allow_pickle=True)
 for ln in a:
