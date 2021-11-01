@@ -86,7 +86,7 @@ schedule = '/home/ubuntu/proj/websrv/temp-clone/actions.npy'
 #schedule = 'actions.npy'
 
 d = dsa_store.DsaStore()
-d.put_dict('/cnf/datestring',get_datestring())
+#d.put_dict('/cnf/datestring',get_datestring())
 
 # update trig_ct
 for i in np.arange(1,21):
