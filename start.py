@@ -20,7 +20,7 @@ def exec_action(a,d):
     if a == 'start':
         d.put_dict('/cmd/corr/docopy','True')
         os.system('/usr/local/bin/dsacon corr start')
-        pytime.sleep(120)
+        pytime.sleep(240)
         os.system('/usr/local/bin/dsacon corr set')
         
     if a == 'stop':
