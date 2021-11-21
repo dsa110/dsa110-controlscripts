@@ -43,7 +43,7 @@ for i in np.arange(1,21):
 while True:
 
     exec_action('start',d)
-    pytime.sleep(3600*3)
+    pytime.sleep(3600*24)
     exec_action('stop',d)
     pytime.sleep(60)
 
