@@ -20,7 +20,7 @@ def exec_action(a,d):
     if a == 'start':
         d.put_dict('/cmd/corr/docopy','True')
         os.system('/usr/local/bin/dsacon corr start')
-        pytime.sleep(180)
+        pytime.sleep(120)
         os.system('/usr/local/bin/dsacon corr set')
         
     if a == 'stop':
@@ -34,17 +34,12 @@ def exec_action(a,d):
 # main part of code
 
 d = dsa_store.DsaStore()
-d.put_dict('/cnf/datestring',get_datestring())
-
-# update trig_ct
-for i in np.arange(1,21):
-    d.put_dict('/mon/corr/'+str(i)+'/voltage_ct',{'n_trigs':0})
 
 while True:
 
-    exec_action('start',d)
-    pytime.sleep(3600*3)
     exec_action('stop',d)
     pytime.sleep(60)
+    exec_action('start',d)
+    pytime.sleep(3600*3)
 
 
