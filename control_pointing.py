@@ -10,6 +10,10 @@ ETCD = DsaStore()
 ANTENNAS = list(Conf().get('corr')['antenna_order'].values())
 OFFSETS = Conf().get('cal')['el_offset']
 
+# offsets are (reported-true). A negative offset means that an antenna
+# has a higher elevation than reported
+# and so the offsets need to be added
+
 def move_and_wait(newposition : float, refants : list, timeout : float = 30, tol : float = 0.99):
     """Move antennas to `newposition` and wait for settling.
 
@@ -20,7 +24,7 @@ def move_and_wait(newposition : float, refants : list, timeout : float = 30, tol
         if ant not in refants:
             ETCD.put_dict(
                 f'/cmd/ant/{ant}',
-                {'cmd': 'move', 'val': newposition-OFFSETS.get(ant, 0)}
+                {'cmd': 'move', 'val': newposition+OFFSETS.get(ant, 0)}
             )
             time.sleep(1e-3)
             elapsed += 1e-3
