@@ -22,10 +22,8 @@ def move_and_wait(newposition : float, refants : list, timeout : float = 30, tol
     elapsed = 0.0
     for ant in ANTENNAS:
         if ant not in refants:
-            ETCD.put_dict(
-                f'/cmd/ant/{ant}',
-                {'cmd': 'move', 'val': newposition+OFFSETS.get(ant, 0)}
-            )
+            #ETCD.put_dict(f'/cmd/ant/{ant}',{'cmd': 'move', 'val': newposition+OFFSETS.get(ant, 0)})
+            ETCD.put_dict(f'/cmd/ant/{ant}',{'cmd': 'move', 'val': newposition})
             time.sleep(1e-3)
             elapsed += 1e-3
     antenna_moved = np.zeros(len(ANTENNAS), dtype=np.bool)

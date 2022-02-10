@@ -1,0 +1,40 @@
+cat_name: fluxcals catalog
+cat_date: 7feb22
+home_dec: 68:00:00
+sources:
+  - name: 3C147
+    RA: 05 42 36.14
+    DEC: +49 51 07.2
+    blocklen: 30
+    priority: 5
+    type: C
+    dm:
+    snr: 
+    trigger: True
+  - name: 3C196
+    RA: 08 13 36.06
+    DEC: +48 13 02.6
+    blocklen: 30
+    priority: 5
+    type: C
+    dm:
+    snr: 
+    trigger: True
+  - name: 3C286
+    RA: 13 31 08.29
+    DEC: +30 30 33.0
+    blocklen: 30
+    priority: 5
+    type: C
+    dm:
+    snr: 
+    trigger: True
+  - name: 3C295
+    RA: 14 11 20.63
+    DEC: +52 12 09
+    blocklen: 30
+    priority: 1
+    type: C
+    dm: 
+    snr: 
+    trigger: True
