@@ -9,42 +9,11 @@ from astropy import units as u
 from astropy.coordinates import SkyCoord, AltAz
 from astropy.coordinates import ICRS
 from astropy.time import Time
+from astropy.table import Table
 from dsautils import dsa_store
 
 d = dsa_store.DsaStore()
 
-
-
-class AzimuthConstraint(Constraint):
-    """
-    Constrain the azimuth 
-    """
-    def __init__(self, min=None, max=None, boolean_constraint=True):
-        """
-        min : `~astropy.units.Quantity` or `None` (optional)
-            Minimum acceptable azimuth. `None`
-            indicates no limit.
-        max : `~astropy.units.Quantity` or `None` (optional)
-            Maximum acceptable azimuth. 
-        """
-        self.min = min if min is not None else 0*u.deg
-        self.max = max if max is not None else 90*u.deg
-        self.boolean_constraint = boolean_constraint
-
-    def compute_constraint(self, times, observer, targets):
-
-        cached_altaz = _get_altaz(times, observer, targets)
-        az = cached_altaz['altaz'].az
-        fixed_az = np.arccos(np.abs(np.cos(az)))
-        
-        if self.boolean_constraint:
-            lowermask = self.min <= fixed_az
-            uppermask = fixed_az <= self.max
-            return lowermask & uppermask
-        else:
-            return min_best_rescale(fixed_az.value*180./np.pi, self.min.value, self.max.value)
-        
-from astropy.table import Table
 
 def to_table(sch, show_transitions=True, show_unused=False):
     # TODO: allow different coordinate types                                                                  
@@ -254,7 +223,7 @@ def define_actions_simple(srcs,transit_times,max_alts,stimes,end_times,northy,re
 def read_srcs(fl):
     with open(fl, 'r') as stream:
         try:
-            srcs = yaml.load(stream)
+            srcs = yaml.load(stream, Loader=yaml.SafeLoader)
             return(srcs)
         except yaml.YAMLError as exc:
             print('cannot open yaml file')
