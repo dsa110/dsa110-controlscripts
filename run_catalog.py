@@ -12,6 +12,8 @@ d = dsa_store.DsaStore()
 
 test = False  # remove for live system or add parameter to webUI
 
+d.put_dict('/cnf/datestring', sched_funcs.get_datestring())
+
 # update trig_ct
 if not test:
     for i in np.arange(1,21):
