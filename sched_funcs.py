@@ -5,7 +5,7 @@ import random
 import string
 from time import sleep
 from datetime import datetime
-import numpy as np, matplotlib.pyplot as plt
+import numpy as np
 from astropy import units as u
 from astropy.coordinates import SkyCoord, AltAz
 from astropy.coordinates import ICRS
