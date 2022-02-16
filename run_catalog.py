@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 
 import os.path
+import sys
+sys.path.append('/home/ubuntu/proj/websrv/temp-clone')
 import numpy as np
 from astropy.time import Time
 from astropy.coordinates import EarthLocation
