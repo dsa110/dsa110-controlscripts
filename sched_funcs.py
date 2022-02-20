@@ -237,21 +237,32 @@ def return_times_day(srcs, start_time, duration, observer):
     # for each source, find transit time
     deltas = np.linspace(0., duration, 6*60*int(duration))*u.hour
     times = start_time + deltas
-    altazframe = AltAz(obstime=times, location=observer)
     transit_times = []
+    srcnames = []
     max_alts = []
     northy = []
+    repeats = int(np.ceil(max(deltas.value)/24))
+    print(repeats)
     for src in srcs['sources']:
         coord=SkyCoord(ra=src['RA'], dec=src['DEC'], unit=(u.hourangle, u.deg))
-        srcaltazs = coord.transform_to(altazframe) 
-        alts = srcaltazs.alt.value
-        # TODO: append to transit_times for each day, if delta>24 hours.
-        transit_times.append(times[alts == np.max(alts)])
-        max_alts.append(np.max(alts))
-        if coord.dec.deg > 37.23:
-            northy.append(True)
-        else:
-            northy.append(False)
+        for i in range(repeats):
+            times0 = times[(deltas.value < (i+1)*24) & (i*24 < deltas.value)]
+            aas = coord.transform_to(AltAz(obstime=times0, location=observer))
+            alts = aas.alt.value
+            azs = aas.az.value
+
+            if (azs.min() < 1) and (alts.max() > 30):
+                tt = times0[(azs <= azs.min()) * (azs.min() < 1)]
+                print(src['name'], tt, np.max(alts), np.min(azs))
+                transit_times.append(tt)
+                srcnames.append(src['name'])
+                max_alts.append(np.max(alts))
+                if coord.dec.deg > 37.23:
+                    northy.append(True)
+                else:
+                    northy.append(False)
+            else:
+                print(f'{src["name"]} does not transit')
     
     # find times in between transit times
     
@@ -260,8 +271,9 @@ def return_times_day(srcs, start_time, duration, observer):
         ttimes[i] = transit_times[i].mjd
     args = np.argsort(ttimes)
     transit_times = [transit_times[i] for i in args]
-    srcs2 = [srcs['sources'][i] for i in args]
-    max_alts = [max_alts[i] for i in args]
+    print([(i, np.mod(i, len(srcs['sources']))) for i in args])
+    srcs2 = [srcs['sources'][np.mod(i, len(srcs['sources']))] for i in args]
+    max_alts = [max_alts[np.mod(i, len(srcs['sources']))] for i in args]
     start_times = []
     end_times = []
     for i in range(len(srcs2)):
@@ -317,7 +329,7 @@ def pause_until(time):
             sleep(diff / 2)
 
             
-def exec_action(a,d):
+def exec_action(a):
     
     if a['cmd'] == 'move':
         d.put_dict('/cmd/ant/0', {'cmd': 'move', 'val': a['val']})
