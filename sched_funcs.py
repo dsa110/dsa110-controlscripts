@@ -5,15 +5,17 @@ import random
 import string
 from time import sleep
 from datetime import datetime
-import numpy as np, matplotlib.pyplot as plt
+import numpy as np
 from astropy import units as u
 from astropy.coordinates import SkyCoord, AltAz
 from astropy.coordinates import ICRS
 from astropy.time import Time
 from astropy.table import Table
-from dsautils import dsa_store
-
-d = dsa_store.DsaStore()
+try:
+    from dsautils import dsa_store
+    d = dsa_store.DsaStore()
+except ImportError:
+    print('No dsautils found. Continuing...')
 
 
 def to_table(sch, show_transitions=True, show_unused=False):
@@ -230,20 +232,20 @@ def read_srcs(fl):
             print('cannot open yaml file')
             
 # return start/end times for each source
-def return_times_day(srcs,start_time,observer):
+def return_times_day(srcs, start_time, duration, observer):
     
     # for each source, find transit time
-    deltas = np.linspace(0.,24.,8640)*u.hour
+    deltas = np.linspace(0., duration, 6*60*int(duration))*u.hour
     times = start_time + deltas
     altazframe = AltAz(obstime=times, location=observer)
     transit_times = []
     max_alts = []
     northy = []
     for src in srcs['sources']:
-        print(src['name'],src['RA'],src['DEC'])
         coord=SkyCoord(ra=src['RA'], dec=src['DEC'], unit=(u.hourangle, u.deg))
         srcaltazs = coord.transform_to(altazframe) 
         alts = srcaltazs.alt.value
+        # TODO: append to transit_times for each day, if delta>24 hours.
         transit_times.append(times[alts == np.max(alts)])
         max_alts.append(np.max(alts))
         if coord.dec.deg > 37.23:
@@ -268,7 +270,7 @@ def return_times_day(srcs,start_time,observer):
             end_times.append((0.5*(transit_times[i].mjd+transit_times[i+1].mjd))[0])
         elif i==len(srcs2)-1:
             start_times.append((0.5*(transit_times[i].mjd+transit_times[i-1].mjd))[0])
-            end_times.append(start_time.mjd+1.)
+            end_times.append(start_time.mjd+duration/24)
         else:
             start_times.append((0.5*(transit_times[i].mjd+transit_times[i-1].mjd))[0])
             end_times.append((0.5*(transit_times[i].mjd+transit_times[i+1].mjd))[0])
