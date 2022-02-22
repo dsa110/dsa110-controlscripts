@@ -38,3 +38,39 @@ sources:
     dm: 
     snr: 
     trigger: True
+  - name: FRB20190303A
+    RA: 13 53 00
+    DEC: +48 15 00
+    blocklen: 30
+    priority:
+    type:
+    dm: 223
+    snr:
+    trigger: True
+  - name: FRB20181119A
+    RA: 12 42 00
+    DEC: +65 08 00
+    blocklen: 30
+    priority:
+    type:
+    dm: 366
+    snr:
+    trigger: True
+  - name: FRB20180814A
+    RA: 04 22 00
+    DEC: +73 40 00
+    blocklen: 30
+    priority:
+    type:
+    dm: 189
+    snr:
+    trigger: True
+  - name: FRB20190417A
+    RA: 19 39 00
+    DEC: +59 24 00
+    blocklen: 30
+    priority:
+    type:
+    dm: 1379
+    snr:
+    trigger: True

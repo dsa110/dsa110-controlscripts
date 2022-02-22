@@ -232,7 +232,7 @@ def read_srcs(fl):
             print('cannot open yaml file')
             
 # return start/end times for each source
-def return_times_day(srcs, start_time, duration, observer):
+def return_times_day(catalog, start_time, duration, observer):
     
     # for each source, find transit time
     deltas = np.linspace(0., duration, 6*60*int(duration))*u.hour
@@ -243,7 +243,7 @@ def return_times_day(srcs, start_time, duration, observer):
     northy = []
     repeats = int(np.ceil(max(deltas.value)/24))
     print(repeats)
-    for src in srcs['sources']:
+    for src in catalog['sources']:
         coord=SkyCoord(ra=src['RA'], dec=src['DEC'], unit=(u.hourangle, u.deg))
         for i in range(repeats):
             times0 = times[(deltas.value < (i+1)*24) & (i*24 < deltas.value)]
@@ -251,7 +251,7 @@ def return_times_day(srcs, start_time, duration, observer):
             alts = aas.alt.value
             azs = aas.az.value
 
-            if (azs.min() < 1) and (alts.max() > 30):
+            if (azs.min() < 1) and (alts.max() > 20):
                 tt = times0[(azs <= azs.min()) * (azs.min() < 1)]
                 print(src['name'], tt, np.max(alts), np.min(azs))
                 transit_times.append(tt)
@@ -265,15 +265,17 @@ def return_times_day(srcs, start_time, duration, observer):
                 print(f'{src["name"]} does not transit')
     
     # find times in between transit times
-    
+    allnames = [catalog['sources'][i]['name'] for i in range(len(catalog['sources']))]
     ttimes = np.zeros(len(transit_times))
     for i in range(len(ttimes)):
         ttimes[i] = transit_times[i].mjd
     args = np.argsort(ttimes)
     transit_times = [transit_times[i] for i in args]
-    print([(i, np.mod(i, len(srcs['sources']))) for i in args])
-    srcs2 = [srcs['sources'][np.mod(i, len(srcs['sources']))] for i in args]
-    max_alts = [max_alts[np.mod(i, len(srcs['sources']))] for i in args]
+    selind = [np.where(np.array(allnames) == src)[0][0] for src in np.array(srcnames)[args]]
+    print(selind)
+    srcs2 = [catalog['sources'][i] for i in selind]
+    max_alts = [max_alts[i] for i in selind]
+
     start_times = []
     end_times = []
     for i in range(len(srcs2)):
