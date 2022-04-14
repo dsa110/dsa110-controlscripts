@@ -68,6 +68,9 @@ def exec_action(a,d):
 
     if a['cmd'] == 'trigger':
         d.put_dict('/cmd/corr/0', {'cmd': 'trigger', 'val': a['val']})
+
+    if a['cmd'] == 'ctrltrigger':
+        d.put_dict('/cmd/corr/0', {'cmd': 'ctrltrigger', 'val': a['val']})
         
     if a['cmd'] == 'record':
         d.put_dict('/cmd/corr/17', {'cmd': 'record', 'val': a['val']})
