@@ -40,6 +40,6 @@ while True:
     exec_action('stop',d)
     pytime.sleep(60)
     exec_action('start',d)
-    pytime.sleep(3600*2)
+    pytime.sleep(3600*4)
 
 
