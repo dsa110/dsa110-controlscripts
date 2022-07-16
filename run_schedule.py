@@ -77,7 +77,18 @@ def exec_action(a,d):
         d.put_dict('/cmd/corr/18', {'cmd': 'record', 'val': a['val']})
         d.put_dict('/cmd/corr/19', {'cmd': 'record', 'val': a['val']})
         d.put_dict('/cmd/corr/20', {'cmd': 'record', 'val': a['val']})
-    
+
+    if a['cmd'] == 't2snr':
+        t2dict = d.get_dict('/cnf/t2')
+        t2dict['min_snr'] = float(a['val'])
+        d.put_dict('/cnf/t2',t2dict)
+
+    if a['cmd'] == 't2snrwide':
+        t2dict = d.get_dict('/cnf/t2')
+        t2dict['min_snr_wide'] = float(a['val'])
+        d.put_dict('/cnf/t2',t2dict)
+
+        
     if a['cmd'] == 'test':
         d.put_dict('/cmd/corr/100', {'cmd': 'test', 'val': '0'})
         pytime.sleep(1)
