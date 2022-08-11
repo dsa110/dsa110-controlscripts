@@ -88,6 +88,11 @@ def exec_action(a,d):
         t2dict['min_snr_wide'] = float(a['val'])
         d.put_dict('/cnf/t2',t2dict)
 
+    if a['cmd'] == 'use_gal_dm':
+        t2dict = d.get_dict('/cnf/t2')
+        t2dict['use_gal_dm'] = int(a['val'])
+        d.put_dict('/cnf/t2',t2dict)
+
         
     if a['cmd'] == 'test':
         d.put_dict('/cmd/corr/100', {'cmd': 'test', 'val': '0'})
