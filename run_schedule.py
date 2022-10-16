@@ -93,6 +93,11 @@ def exec_action(a,d):
         t2dict['use_gal_dm'] = int(a['val'])
         d.put_dict('/cnf/t2',t2dict)
 
+    if a['cmd'] == 'max_ibox':
+        t2dict = d.get_dict('/cnf/t2')
+        t2dict['max_ibox'] = int(a['val'])
+        d.put_dict('/cnf/t2',t2dict)
+
         
     if a['cmd'] == 'test':
         d.put_dict('/cmd/corr/100', {'cmd': 'test', 'val': '0'})
