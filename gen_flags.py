@@ -2,7 +2,7 @@ import numpy as np
 import sys, os
 from dsautils import cnf; c = cnf.Conf(); a = c.get('corr')['antenna_order']
 
-flagged_ants = [10, 36, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 100]
+flagged_ants = [4, 10, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 100]
 
 for i_ant in np.arange(1,len(sys.argv)):
     ant = int(sys.argv[i_ant])
