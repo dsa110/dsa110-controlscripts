@@ -43,7 +43,7 @@ d = dsa_store.DsaStore()
 while True:
 
     exec_action('start',d)
-    pytime.sleep(900)
+    pytime.sleep(1800)
     exec_action('stop',d)
     pytime.sleep(60)
 
