@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/home/ubuntu/anaconda3/envs/casa38/bin/python
 
 import sys
 import os
