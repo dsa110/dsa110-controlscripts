@@ -15,6 +15,13 @@ from dsautils import dsa_store
 
 d = dsa_store.DsaStore()
 
+def testrun():
+
+    for i in range(10):
+        time.sleep(3)
+        fl = "/home/ubuntu/test"+str(i)
+        os.system("echo 'hello' >  "+fl)
+
 
 def to_table(sch, show_transitions=True, show_unused=False):
     # TODO: allow different coordinate types                                                                  
