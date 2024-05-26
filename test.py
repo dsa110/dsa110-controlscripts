@@ -1,3 +1,5 @@
+#!/home/ubuntu/anaconda3/envs/casa38/bin/python
+
 import os, time
 
 for i in range(10):
