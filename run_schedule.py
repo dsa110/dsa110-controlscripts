@@ -56,11 +56,11 @@ def exec_action(a,d):
     if a['cmd'] == 'start':
         d.put_dict('/cmd/corr/docopy','True')
         os.system('/home/ubuntu/anaconda3/envs/casa38/bin/dsacon corr start')
-        pytime.sleep(700)
+        pytime.sleep(600)
         os.system('/home/ubuntu/anaconda3/envs/casa38/bin/dsacon corr set')
         
     if a['cmd'] == 'stop':
-        d.put_dict('/cmd/corr/0', {'cmd': 'trigger', 'val': '0-flush-'})
+        d.put_dict('/cmd/corr/0', {'cmd': 'ctrltrigger', 'val': 'flush'})
         pytime.sleep(120)
         os.system('/home/ubuntu/anaconda3/envs/casa38/bin/dsacon corr stop')
         pytime.sleep(60)
