@@ -71,7 +71,7 @@ def exec_action(a,d):
         pytime.sleep(60)
         d.put_dict('/cmd/corr/docopy','False')
 
-    if a == 'faststart':
+    if a['cmd'] == 'faststart':
         d.put_dict('/cmd/corr/docopy','True')
         for i in range(17,21):
             d.put_dict('/cmd/corr/'+str(i), {'cmd':'start', 'val':a['val']})
