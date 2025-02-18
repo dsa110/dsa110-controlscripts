@@ -16,19 +16,37 @@ def get_datestring():
     return datestring
             
 def exec_action(a,d):
-    
-    if a == 'start':
+
+    if a['cmd'] == 'start':
         d.put_dict('/cmd/corr/docopy','True')
-        os.system('/home/ubuntu/anaconda3/envs/casa38/bin/dsacon corr start')
+        for i in range(17,21):
+            d.put_dict('/cmd/corr/'+str(i), {'cmd':'start', 'val':a['val']})
+        pytime.sleep(5)
+        for i in range(1,17):
+            d.put_dict('/cmd/corr/'+str(i), {'cmd':'start', 'val':a['val']})
+        
         pytime.sleep(480)
         os.system('/home/ubuntu/anaconda3/envs/casa38/bin/dsacon corr set')
+
+    if a['cmd'] == 'faststart':
+        d.put_dict('/cmd/corr/docopy','True')
+        for i in range(17,21):
+            d.put_dict('/cmd/corr/'+str(i), {'cmd':'start', 'val':a['val']})
+        pytime.sleep(5)
+        for i in range(1,17):
+            d.put_dict('/cmd/corr/'+str(i), {'cmd':'start', 'val':a['val']})
+
+        pytime.sleep(180)
+        os.system('/home/ubuntu/anaconda3/envs/casa38/bin/dsacon corr set')
+
         
-    if a == 'stop':
-#        d.put_dict('/cmd/corr/0', {'cmd': 'trigger', 'val': '0-flush-'})
-#        pytime.sleep(120)
+    if a['cmd'] == 'stop':
+        #d.put_dict('/cmd/corr/0', {'cmd': 'trigger', 'val': '0-flush-'})
+        #pytime.sleep(120)
         os.system('/home/ubuntu/anaconda3/envs/casa38/bin/dsacon corr stop')
-        pytime.sleep(60)
+        pytime.sleep(10)
         d.put_dict('/cmd/corr/docopy','False')
+        pytime.sleep(2)
         
 
 # main part of code
@@ -40,11 +58,12 @@ d = dsa_store.DsaStore()
 for i in np.arange(1,21):
     d.put_dict('/mon/corr/'+str(i)+'/voltage_ct',{'n_trigs':0})
 
+exec_action({"cmd":"start","val":"124.4"},d)
+    
 while True:
 
-    exec_action('start',d)
-    pytime.sleep(3600*4)
-    exec_action('stop',d)
-    pytime.sleep(60)
+    pytime.sleep(3600)
+    exec_action({"cmd":"stop","val":"0"},d)
+    exec_action({"cmd":"faststart","val":"124.4"},d)
 
 
