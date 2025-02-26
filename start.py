@@ -52,19 +52,19 @@ def exec_action(a,d):
 # main part of code
 
 d = dsa_store.DsaStore()
-EL = "95.04"
+DEC = "42.27"
 #d.put_dict('/cnf/datestring',get_datestring())
 
 # update trig_ct
 for i in np.arange(1,21):
     d.put_dict('/mon/corr/'+str(i)+'/voltage_ct',{'n_trigs':0})
 
-exec_action({"cmd":"start","val":EL},d)
+exec_action({"cmd":"start","val":DEC},d)
     
 while True:
 
     pytime.sleep(3600)
     exec_action({"cmd":"stop","val":"0"},d)
-    exec_action({"cmd":"faststart","val":EL},d)
+    exec_action({"cmd":"faststart","val":DEC},d)
 
 
