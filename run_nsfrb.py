@@ -106,14 +106,14 @@ for ln in a:
 
 pytime.sleep(180)
 
-exec_action({"cmd":"move","val":"124.4"},d)
+exec_action({"cmd":"move","val":"69.04"},d)
 pytime.sleep(180)
-exec_action({"cmd":"move","val":"124.4"},d)
+exec_action({"cmd":"move","val":"69.04"},d)
 pytime.sleep(10)
-exec_action({"cmd":"start","val":"71.6"},d)
+exec_action({"cmd":"start","val":"16.27"},d)
     
 while True:
 
     pytime.sleep(3600)
     exec_action({"cmd":"stop","val":"0"},d)
-    exec_action({"cmd":"faststart","val":"71.6"},d)
+    exec_action({"cmd":"faststart","val":"16.27"},d)
