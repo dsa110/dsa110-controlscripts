@@ -31,8 +31,8 @@ def exec_action(a,d):
 
         
     if a == 'stop':
-#        d.put_dict('/cmd/corr/0', {'cmd': 'trigger', 'val': '0-flush-'})
-#        pytime.sleep(120)
+        #d.put_dict('/cmd/corr/0', {'cmd': 'trigger', 'val': '0-flush-'})
+        #pytime.sleep(120)
         os.system('/home/ubuntu/anaconda3/envs/casa38/bin/dsacon corr stop')
         pytime.sleep(10)
         d.put_dict('/cmd/corr/docopy','False')

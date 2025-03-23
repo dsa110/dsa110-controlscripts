@@ -7,14 +7,15 @@ import numpy as np
 from dsautils.dsa_store import DsaStore
 from dsautils.cnf import Conf
 ETCD = DsaStore()
-ANTENNAS = list(Conf().get('corr')['antenna_order'].values())
-OFFSETS = Conf().get('cal')['el_offset']
+ANTENNAS = list(Conf(use_etcd=True).get('corr')['antenna_order'].values())
+print(ANTENNAS)
+#OFFSETS = Conf().get('cal')['el_offset']
 
 # offsets are (reported-true). A negative offset means that an antenna
 # has a higher elevation than reported
 # and so the offsets need to be added
 
-def move_and_wait(newposition : float, refants : list, timeout : float = 30, tol : float = 0.99):
+def move_and_wait(newposition : float, refants : list, timeout : float = 30, tol : float = 0.9):
     """Move antennas to `newposition` and wait for settling.
 
     `refants` are not moved.  `newposition` is in deg and (imprecise) timeout in s.
@@ -26,13 +27,13 @@ def move_and_wait(newposition : float, refants : list, timeout : float = 30, tol
             ETCD.put_dict(f'/cmd/ant/{ant}',{'cmd': 'move', 'val': newposition})
             time.sleep(1e-3)
             elapsed += 1e-3
-    antenna_moved = np.zeros(len(ANTENNAS), dtype=np.bool)
+    antenna_moved = np.zeros(len(ANTENNAS))
     while elapsed < timeout:
         for i, ant in enumerate(ANTENNAS):
             if not antenna_moved[i]:
                 antdict = ETCD.get_dict(f'/mon/ant/{ant}')
                 if antdict is not None and antdict['drv_state'] == 2:
-                    antenna_moved[i] = True
+                    antenna_moved[i] = 1
         if antenna_moved.mean() > tol:
             return 0
         time.sleep(3)
