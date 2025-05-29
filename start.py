@@ -25,7 +25,7 @@ def exec_action(a,d):
         for i in range(1,17):
             d.put_dict('/cmd/corr/'+str(i), {'cmd':'start', 'val':a['val']})
         
-        pytime.sleep(480)
+        pytime.sleep(300)
         os.system('/home/ubuntu/anaconda3/envs/casa38/bin/dsacon corr set')
 
     if a['cmd'] == 'faststart':
@@ -52,7 +52,7 @@ def exec_action(a,d):
 # main part of code
 
 d = dsa_store.DsaStore()
-DEC = "71.6"
+DEC = "33.15"
 #d.put_dict('/cnf/datestring',get_datestring())
 
 # update trig_ct
