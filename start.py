@@ -52,7 +52,7 @@ def exec_action(a,d):
 # main part of code
 
 d = dsa_store.DsaStore()
-DEC = "16.27"
+DEC = "65.72"
 #d.put_dict('/cnf/datestring',get_datestring())
 
 # update trig_ct
