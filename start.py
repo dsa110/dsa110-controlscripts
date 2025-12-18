@@ -25,7 +25,7 @@ def exec_action(a,d):
         for i in range(1,17):
             d.put_dict('/cmd/corr/'+str(i), {'cmd':'start', 'val':a['val']})
         
-        pytime.sleep(180)
+        pytime.sleep(360)
         os.system('/home/ubuntu/anaconda3/envs/casa38/bin/dsacon corr set')
 
     if a['cmd'] == 'faststart':
