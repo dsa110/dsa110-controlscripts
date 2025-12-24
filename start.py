@@ -41,8 +41,16 @@ def exec_action(a,d):
 
         
     if a['cmd'] == 'stop':
-        d.put_dict('/cmd/corr/0', {'cmd': 'trigger', 'val': '0-flush-'})
-        pytime.sleep(90)
+
+        # edit to avoid missing voltages for previous triggers
+        # triggers during these 2 min will likely be missed.
+        lastcmd = d.get_dict("/cmd/corr/0")
+        if lastcmd['cmd'] == 'trigger':
+            if 'flush' not in lastcmd['val']:
+                pytime.sleep(120)
+        
+        #d.put_dict('/cmd/corr/0', {'cmd': 'trigger', 'val': '0-flush-'})
+        #pytime.sleep(90)
         os.system('/home/ubuntu/anaconda3/envs/casa38/bin/dsacon corr stop')
         pytime.sleep(10)
         d.put_dict('/cmd/corr/docopy','False')
