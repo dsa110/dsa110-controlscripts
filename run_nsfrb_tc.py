@@ -32,9 +32,8 @@ ANTENNAS = list(Conf(use_etcd=True).get('corr')['antenna_order'].values())
 print("Antenna list:", ANTENNAS)
 
 # Load temperature-correction fit solutions relative to this script
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-fitsolns = np.load(os.path.join(SCRIPT_DIR, "fitsolutions.npy"))
-fitsolns_antorder = np.load(os.path.join(SCRIPT_DIR, "fitsolutions_antorder.npy"))
+fitsolns = np.load("/home/ubuntu/proj/websrv/temp-clone/fitsolutions.npy",allow_pickle=True)
+fitsolns_antorder = np.load("/home/ubuntu/proj/websrv/temp-clone/fitsolutions_antorder.npy",allow_pickle=True)
 
 # ---------------------------------------------------------------------------
 # Helper functions
